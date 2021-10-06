@@ -1,0 +1,72 @@
+{% extends "survey/layout.html" %}
+
+{% block body %}
+    {% if request.user.is_authenticated %}
+    <div><h3>Общие данные</h3></div>    
+    <form action="{% url 'personal' %}" method="post">
+            {% csrf_token %}
+            <div class="quest">
+                <div>Как вас зовут?</div>
+                <div>{{ form.name|safe }}</div>
+            </div>
+            <div class="quest">
+                <div>Дата заполнения анкеты:</div>
+                <div>{{ form.survey_date|safe }}</div>
+            </div>
+            <div class="quest">
+                <div>Адрес объекта (ЖК, №дома, квартира):</div>
+                <div>{{ form.addr|safe }}</div>
+            </div>
+            <div class="quest">
+                <div>Площадь квартиры без балкона:</div>
+                <div>{{ form.square|safe }}</div>
+            </div>
+            <div class="quest">
+                <div>План квартиры (если есть):</div>
+                <div>{{ form.plan|safe }}</div>
+            </div>
+            <div class="quest">
+                <div>Состав семьи - кратко опишите состав семьи (возраст, пол), которая будет проживать в квартире/возможное пополнение, наличие питомцев. Будут ли приезжать родственники/друзья с ночевкой?</div>
+                <div>{{ form.composition|safe }}</div>
+            </div>
+            <div class="quest">
+                <div>Увлечения семьи - кратко опишите интересы, увлечения и хобби всех членов семьи, что особенного стоит учесть при планировании интерьера (например шитье, игра на гитаре, активные виды спорта и хранение велосипедов и т.д.):</div>
+                <div>{{ form.interests|safe }}</div>
+            </div>
+            <div class="quest">
+                <div>Бюджет на чистовые отделочные материалы и оборудование (понимание дизайнером бюджета позволит создать реализуемый проект в соответствии с вашими возможностями):</div>
+                <div>{{ form.budget|safe }}</div>
+            </div>
+            <div class="quest">
+                <div>Комплектация объекта:</div>
+                {% for item in form.equip_s %}
+                <div>{{ item }}</div>
+                {% endfor %}
+            </div>
+            <div class="quest">
+                <div></div>
+                <div>{{ form.equip|safe }}</div>
+            </div>
+
+            <div class="quest">
+                <div>Стиль работы над проектом с дизайнером:</div>
+                {% for item in form.project_style %}
+                <div>{{item}}</div>
+                {% endfor %}
+            </div>
+
+            <div class="quest">
+                <div>Красота или практичность?</div>
+                {% for item in form.beauty %}
+                <div>{{item}}</div>
+                {% endfor %}
+            </div>
+
+            <input class="btn btn-primary" type="submit" value="Далее">
+        </form>
+
+    <div>
+        <a class="btn btn-primary" href="{% url 'index' %}">В начало</a>
+    </div>
+    {% endif %}
+{% endblock %}

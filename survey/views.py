@@ -1,10 +1,27 @@
 from django.contrib.auth import authenticate, login, logout
-from django.http.response import HttpResponse, HttpResponseRedirect
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.db import IntegrityError
+from django import forms
+
+from survey.forms import PersonalForm
 
 from .models import User, Personal
+
+
+# class PersonalForm(forms.Form):
+#     name = forms.CharField()
+#     survey_date = forms.DateField()
+#     addr = forms.CharField()
+#     square = forms.FloatField()
+#     plan = forms.ImageField()
+#     composition = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'cols': 30}))
+#     interests = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'cols': 30}))
+#     budget = forms.FloatField(widget=forms.Textarea(attrs={'rows': 3, 'cols': 30}))
+#     equip = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'cols': 30}))
+#     project_style = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'cols': 30}))
+#     beauty = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'cols': 30}))
 
 
 def index(request):
@@ -55,3 +72,53 @@ def register(request):
         return HttpResponseRedirect(reverse('index'))
     else:
         return render(request, 'survey/register.html')
+
+
+def personal(request):
+    if request.method == 'POST':
+        user = request.user
+        form = PersonalForm(request.POST)
+        if form.is_valid():
+            user = user
+            name = form.cleaned_data['name']
+            survey_date = form.cleaned_data['survey_date']
+            addr = form.cleaned_data['addr']
+            square = form.cleaned_data['square']
+            plan = form.cleaned_data['plan']
+            composition = form.cleaned_data['composition']
+            interests = form.cleaned_data['interests']
+            budget = form.cleaned_data['budget']
+            equip_s = form.cleaned_data['equip_s']
+            equip = form.cleaned_data['equip']
+            project_style = form.cleaned_data['project_style']
+            beauty = form.cleaned_data['beauty']
+            mod = Personal(
+                user=user,
+                name=name,
+                survey_date=survey_date,
+                addr=addr,
+                square=square,
+                plan=plan,
+                composition=composition,
+                interests=interests,
+                budget=budget,
+                equip_s=equip_s,
+                equip=equip,
+                project_style=project_style,
+                beauty=beauty,
+            )
+            mod.save()
+            # form_eq.save()
+            # form_ps.save()
+            # form_bf.save()
+            return HttpResponseRedirect('/')
+        else:
+            return render(request, 'survey/personal.html', {
+                'form': form,
+            })
+
+    form = PersonalForm()
+    return render(request, 'survey/personal.html', {
+        'form': form,
+    })
+

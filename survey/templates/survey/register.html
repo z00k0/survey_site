@@ -7,7 +7,7 @@
     {% if message %}
         <div>{{message}}</div>
     {% endif %}
-
+    <div>
     <form action="{% url 'register' %}" method="post">
         {% csrf_token %}
         <div class="form-group">
@@ -24,6 +24,7 @@
         </div>
         <input class="btn btn-primary" type="submit" value="Register">
     </form>
+    </div>
     <div>
         Уже есть аккаунт? <a href="{% url 'login' %}">Log In here</a>
     </div>
