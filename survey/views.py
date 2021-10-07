@@ -77,11 +77,12 @@ def register(request):
 def personal(request):
     if request.method == 'POST':
         user = request.user
-        form = PersonalForm(request.POST)
+        form = PersonalForm(request.POST, request.FILES)
         if form.is_valid():
             user = user
             name = form.cleaned_data['name']
             survey_date = form.cleaned_data['survey_date']
+            print(f'date: {survey_date}')
             addr = form.cleaned_data['addr']
             square = form.cleaned_data['square']
             plan = form.cleaned_data['plan']
@@ -108,9 +109,6 @@ def personal(request):
                 beauty=beauty,
             )
             mod.save()
-            # form_eq.save()
-            # form_ps.save()
-            # form_bf.save()
             return HttpResponseRedirect('/')
         else:
             return render(request, 'survey/personal.html', {

@@ -10,43 +10,15 @@ class User(AbstractUser):
     pass
 
 
-# class Equips(models.Model):
-#     choices = [
-#         ('v1', 'Хотим все чистовые материалы и оборудование закупать самостоятельно (все вопросы по доставке, приемке, обменам и возвратам остаются на стороне заказчика)'),
-#         ('v2', 'Хотим делегировать комплектацию "Профмастероф" (все вопросы по доставке, приемке, обменам и возвратам берет на себя компания)'),
-#         ('v3', 'Хотим что-то определенное закупить сами, остальное делегируем "Профмастероф"'),
-#         ('v4', 'Другое:')
-#     ]
-
-
-# class ProjectStyles(models.Model):
-#     choices = [
-#         ('v1', 'Мне нужен дизайнер, который разработает проект с моим минимальным участием'),
-#         ('v2', 'Я доверяю профессиональному мнению и вкусу дизайнера, просто хочу, чтобы учли пожелания из этой анкеты'),
-#         ('v3', 'У меня очень много идей, но не знаю, как их правильно вписать в интерьер. Мне нужны советы и помощь дизайнера, чтобы оформить грамотный интерьер'),
-#         ('v4', 'Я четко знаю, чего хочу. Дизайнер нужен только для того, чтобы оформить мои идеи в дизайн-проект')
-#     ]
-
-
-class Beauties(models.Model):
-    choices = [
-        ('v1', 'Главное, чтобы красиво!'),
-        ('v2', 'Я могу пожертвовать некоторым комфортом ради красивого интерьера'),
-        ('v3', 'Я хочу найти баланс между красотой и практичностью'),
-        ('v4', 'Мне нужен практичный интерьер, даже в ущерб красоте'),
-        ('v5', 'Чем практичнее, тем красивее')
-    ]
-
-
 class Personal(models.Model):
     def user_media_path(instance, filename):
-        return 'upload/user_{0}/plan/{1}'.format(instance.user.id, filename)
+        return f'upload/user_{instance.user.pk:03d}/plan/{filename}'
     user = models.OneToOneField(User, on_delete=CASCADE)
     name = models.CharField(max_length=50, blank=True, default=None)
-    survey_date = models.DateTimeField(auto_now_add=True, db_index=True)
+    survey_date = models.DateTimeField(blank=True, default=None, null=True)
     addr = models.CharField(max_length=200, blank=True, default=None, null=True)
     square = models.FloatField(default=0, blank=True, null=True)
-    plan = models.ImageField(upload_to=user_media_path, blank=True, null=True)
+    plan = models.FileField(upload_to=user_media_path, blank=True, null=True)
     composition = models.CharField(max_length=500, blank=True, null=True, default=None)
     interests = models.CharField(max_length=500, blank=True, null=True, default=None)
     budget = models.FloatField(default=0, blank=True, null=True)

@@ -3,7 +3,7 @@
 {% block body %}
     {% if request.user.is_authenticated %}
     <div><h3>Общие данные</h3></div>    
-    <form action="{% url 'personal' %}" method="post">
+    <form action="{% url 'personal' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="quest">
                 <div>Как вас зовут?</div>
