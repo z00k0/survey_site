@@ -1,20 +1,10 @@
 from datetime import datetime
 from django import forms
+from django.db import models
 from django.db.models import fields
+from django.forms import widgets
 
-from survey.models import Personal
-
-
-# class EquipsForm(forms.Form):
-#     eqs = forms.ChoiceField(widget=forms.RadioSelect, choices=Equips.choices)
-
-
-# class ProjectStyleForm(forms.Form):
-#     ps = forms.ChoiceField(widget=forms.RadioSelect, choices=ProjectStyles.choices)
-
-
-# class BeautyForm(forms.Form):
-#     bf = forms.ChoiceField(widget=forms.RadioSelect, choices=Beauties.choices)
+from survey.models import Personal, Visual
 
 
 class PersonalForm(forms.Form):
@@ -31,3 +21,19 @@ class PersonalForm(forms.Form):
     project_style = forms.ChoiceField(widget=forms.RadioSelect, choices=Personal.ProjectStyles.choices, required=False)
     beauty = forms.ChoiceField(widget=forms.RadioSelect, choices=Personal.Beauties.choices, required=False)
 
+class VisualForm(forms.ModelForm):
+    class Meta:
+        model = Visual
+        fields = [
+            'user',
+            'material',
+            'materials',
+            'material_other',
+        ]
+        widgets = {
+            'material': forms.CheckboxSelectMultiple(),
+            'materials': forms.Textarea(attrs={'display': 'none'}),
+            'material_other': forms.Textarea(attrs={'rows': 1, 'cols': 30})
+
+        }
+        

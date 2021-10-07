@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.db import IntegrityError
 from django import forms
 
-from survey.forms import PersonalForm
+from survey.forms import PersonalForm, VisualForm
 
 from .models import User, Personal
 
@@ -120,3 +120,22 @@ def personal(request):
         'form': form,
     })
 
+def visual(request):
+    if request.method == 'POST':
+        user = request.user
+        form = VisualForm(request.POST)
+        list_checkbox = request.POST.getlist('material')
+        print('Dir:', form.fields['material'])
+        print(f'{list_checkbox=}')
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+        else:
+            print(form.errors.as_data())
+            return render(request, 'survey/visual.html', {
+                'form': form,
+            })
+    form = VisualForm()
+    return render(request, 'survey/visual.html', {
+        'form': form,
+    })

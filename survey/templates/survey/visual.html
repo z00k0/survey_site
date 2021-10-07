@@ -1,0 +1,27 @@
+{% extends "survey/layout.html" %}
+
+{% block body %}
+    {% if request.user.is_authenticated %}
+    <div><h3>Общие данные</h3></div>    
+    <form action="{% url 'visual' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- <div class="quest">
+                <div>Какие материалы и элементы оформления хотелось бы видеть в интерьере?</div>
+                <div>{{ form.material|safe }}</div>
+            </div> -->
+            <div class="quest">
+                <div></div>
+                <div>{{ form.material_other|safe }}</div>
+            </div>
+
+            {% for item in form.material %}
+            <div class="quest">
+                <div>{{ item.fielsd.values|safe }}</div>
+                <div>{{ item|safe }}</div>
+            </div>
+            {% endfor %}
+
+            <input class="btn btn-primary" type="submit" value="Далее">
+    </form>
+    {% endif %}
+{% endblock %}

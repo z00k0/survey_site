@@ -50,3 +50,30 @@ class Personal(models.Model):
 
     beauty = models.CharField(max_length=2, default=None, blank=True, null=True, choices=Beauties.choices)
 
+
+class Visual(models.Model):
+    class MaterialChoice(models.IntegerChoices):
+        wood = 0, 'Дерево'
+        stone = 1, 'Камень'
+        concrete = 2, 'Бетон'
+        textile = 3, 'Текстиль'
+        leather = 4, 'Кожа'
+        glass = 5, 'Стекло'
+        metal = 6, 'Металл'
+        aged_surfaces = 7, 'Состаренные поверхности'
+        smooth = 8, 'Гладкие поверхности'
+        brick = 9, 'Кирпич'
+        wallpaper = 10, 'Декоративные обои'
+        reiki = 11, 'Рейки'
+        moldings = 12, 'Молдинги на стенах'
+        paintings = 13, 'Картины'
+        fresco = 14, 'Фреска/фотообои во всю стену'
+        other = 15, 'Другое'
+    user = models.OneToOneField(User, on_delete=CASCADE)
+    material = models.PositiveSmallIntegerField(
+        choices=MaterialChoice.choices,
+        default=None,
+        # max_length=150,
+    )
+    materials = models.CharField(max_length=200, null=True, default=None, blank=True)
+    material_other = models.CharField(max_length=200, null=True, default=None, blank=True)
