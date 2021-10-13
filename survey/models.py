@@ -2,8 +2,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.base import Model
 from django.db.models.deletion import CASCADE
+from django.db.models.fields import CharField
 from django.utils.translation import gettext_lazy as _
 
+from multiselectfield import MultiSelectField
 
 # Create your models here.
 class User(AbstractUser):
@@ -13,7 +15,7 @@ class User(AbstractUser):
 class Personal(models.Model):
     def user_media_path(instance, filename):
         return f'upload/user_{instance.user.pk:03d}/plan/{filename}'
-    user = models.OneToOneField(User, on_delete=CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, blank=True, default=None)
     survey_date = models.DateTimeField(blank=True, default=None, null=True)
     addr = models.CharField(max_length=200, blank=True, default=None, null=True)
@@ -51,29 +53,90 @@ class Personal(models.Model):
     beauty = models.CharField(max_length=2, default=None, blank=True, null=True, choices=Beauties.choices)
 
 
+MATS_CHOICES = (
+    ('wood', 'Дерево'),
+    ('stone', 'Камень'),
+    ('concrete', 'Бетон'),
+    ('textile', 'Текстиль'),
+    ('leather', 'Кожа'),
+    ('glass', 'Стекло'),
+    ('metal', 'Металл'),
+    ('aged', 'Состаренные поверхности'),
+    ('smooth', 'Гладкие поверхности'),
+    ('brick', 'Кирпич'),
+    ('wallpaper', 'Декоративные обои'),
+    ('rails', 'Рейки'),
+    ('moldings', 'Молдинги на стенах'),
+    ('paintings', 'Картины'),
+    ('fresco', 'Фреска/фотообои во всю стену'),
+    ('other', 'Другое'),
+)
+
+STYLE_CHOICES = (
+    ('v01', 'v01'),
+    ('v02', 'v02'),
+    ('v03', 'v03'),
+    ('v04', 'v04'),
+    ('v05', 'v05'),
+    ('v06', 'v06'),
+    ('v07', 'v07'),
+    ('v08', 'v08'),
+    ('v09', 'v09'),
+    ('v10', 'v10'),
+    ('v11', 'v11'),
+    ('v12', 'v12'),
+    ('v13', 'v13'),
+    ('v14', 'v14'),
+    ('v15', 'v15'),
+    ('v16', 'v16'),
+    ('v17', 'Другое'),
+)
+
+FURNITURE_CHOICES = (
+    ('v01', 'ИКЕА'),
+    ('v02', 'Любая подходящая готовая мебель'),
+    ('v03', 'Встроенная, под заказ'),
+    ('v04', 'Другое:'),
+)
+
+PLANNING_CHOICES = (
+    ('v01', 'Коридор'),
+    ('v02', 'Ванная'),
+    ('v03', 'Санузел'),
+    ('v04', 'Гардеробная'),
+    ('v05', 'Спальня'),
+    ('v06', 'Кухня'),
+    ('v07', 'Кухня-гостиная'),
+    ('v08', 'Гостиная'),
+    ('v09', 'Детская'),
+    ('v10', 'Кабинет'),
+    ('v11', 'Балкон'),
+    ('v12', 'Лоджия'),
+    ('v13', 'Кладовая'),
+    ('v14', 'Постирочная'),
+    ('v15', 'Гостевая спальня'),
+    ('v16', 'Хозблок'),
+    ('v17', 'Другое'),
+)
+
+PLANNING_TYPE_CHOICES = (
+    ('v01', 'Незначительные изменения'),
+    ('v02', 'Полная перепланировка'),
+    ('v03', 'На усмотрение дизайнера (любая перепланировка это дополнительные затраты на работы)'),
+    ('v04', 'Перепланировки не будет'),
+)
+
 class Visual(models.Model):
-    class MaterialChoice(models.IntegerChoices):
-        wood = 0, 'Дерево'
-        stone = 1, 'Камень'
-        concrete = 2, 'Бетон'
-        textile = 3, 'Текстиль'
-        leather = 4, 'Кожа'
-        glass = 5, 'Стекло'
-        metal = 6, 'Металл'
-        aged_surfaces = 7, 'Состаренные поверхности'
-        smooth = 8, 'Гладкие поверхности'
-        brick = 9, 'Кирпич'
-        wallpaper = 10, 'Декоративные обои'
-        reiki = 11, 'Рейки'
-        moldings = 12, 'Молдинги на стенах'
-        paintings = 13, 'Картины'
-        fresco = 14, 'Фреска/фотообои во всю стену'
-        other = 15, 'Другое'
-    user = models.OneToOneField(User, on_delete=CASCADE)
-    material = models.PositiveSmallIntegerField(
-        choices=MaterialChoice.choices,
-        default=None,
-        # max_length=150,
-    )
-    materials = models.CharField(max_length=200, null=True, default=None, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    materials = MultiSelectField(choices=MATS_CHOICES, default=False) #  , choices=MatChoice.choices
     material_other = models.CharField(max_length=200, null=True, default=None, blank=True)
+    styles = MultiSelectField(choices=STYLE_CHOICES, default=False)
+    style_other = CharField(max_length=200, null=True, default=None, blank=True)
+    unsuitable = CharField(max_length=200, null=True, default=None, blank=True)
+    furniture = MultiSelectField(choices=FURNITURE_CHOICES, default=None)
+    furniture_other = CharField(max_length=200, null=True, default=None, blank=True)
+    planning = MultiSelectField(choices=PLANNING_CHOICES, default=None)
+    planning_other = CharField(max_length=200, null=True, default=None, blank=True)
+    planning_type = MultiSelectField(choices=PLANNING_TYPE_CHOICES, default=None)
+    planning_type_other = CharField(max_length=200, null=True, default=None, blank=True)
+

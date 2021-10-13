@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.db.models import fields
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -7,21 +8,7 @@ from django import forms
 
 from survey.forms import PersonalForm, VisualForm
 
-from .models import User, Personal
-
-
-# class PersonalForm(forms.Form):
-#     name = forms.CharField()
-#     survey_date = forms.DateField()
-#     addr = forms.CharField()
-#     square = forms.FloatField()
-#     plan = forms.ImageField()
-#     composition = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'cols': 30}))
-#     interests = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'cols': 30}))
-#     budget = forms.FloatField(widget=forms.Textarea(attrs={'rows': 3, 'cols': 30}))
-#     equip = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'cols': 30}))
-#     project_style = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'cols': 30}))
-#     beauty = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'cols': 30}))
+from .models import User, Personal, Visual
 
 
 def index(request):
@@ -79,10 +66,8 @@ def personal(request):
         user = request.user
         form = PersonalForm(request.POST, request.FILES)
         if form.is_valid():
-            user = user
             name = form.cleaned_data['name']
             survey_date = form.cleaned_data['survey_date']
-            print(f'date: {survey_date}')
             addr = form.cleaned_data['addr']
             square = form.cleaned_data['square']
             plan = form.cleaned_data['plan']
@@ -121,19 +106,24 @@ def personal(request):
     })
 
 def visual(request):
+    context = {}
     if request.method == 'POST':
-        user = request.user
+        # user = request.user
+        user = User.objects.get(username=request.user)
+        # print(f'{user=}')
         form = VisualForm(request.POST)
-        list_checkbox = request.POST.getlist('material')
-        print('Dir:', form.fields['material'])
-        print(f'{list_checkbox=}')
+        context['form'] = form
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/')
+            new_form = form.save(commit=False)
+            new_form.user = user
+            # print(f'{new_form.user=}')
+            new_form.save()
+            return HttpResponseRedirect('visual')
         else:
-            print(form.errors.as_data())
+            print(f'error: {form.errors.as_data()=}')
             return render(request, 'survey/visual.html', {
                 'form': form,
+
             })
     form = VisualForm()
     return render(request, 'survey/visual.html', {

@@ -6,5 +6,5 @@ from .models import User, Personal, Visual
 admin.site.register(User, UserAdmin)
 admin.site.register(Personal)
 admin.site.register(Visual)
-# admin.site.register(ProjectStyles)
+# admin.site.register(MaterialChoice)
 # admin.site.register(Beauties)
