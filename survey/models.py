@@ -128,7 +128,7 @@ PLANNING_TYPE_CHOICES = (
 
 class Visual(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    materials = MultiSelectField(choices=MATS_CHOICES, default=False) #  , choices=MatChoice.choices
+    materials = MultiSelectField(choices=MATS_CHOICES, default=None) #  , choices=MatChoice.choices
     material_other = models.CharField(max_length=200, null=True, default=None, blank=True)
     styles = MultiSelectField(choices=STYLE_CHOICES, default=False)
     style_other = CharField(max_length=200, null=True, default=None, blank=True)
@@ -140,3 +140,154 @@ class Visual(models.Model):
     planning_type = MultiSelectField(choices=PLANNING_TYPE_CHOICES, default=None)
     planning_type_other = CharField(max_length=200, null=True, default=None, blank=True)
 
+KITCHEN_CHOICES = (
+    ('v01', 'Холодильник встроенный'),
+    ('v02', 'Холодильник отдельностоящий'),
+    ('v03', 'Холодильник отдельностоящий широкий side-by-side'),
+    ('v04', 'Посудомоечная машина шириной 60 см (оптимально для семьи из 4 и более человек)'),
+    ('v05', 'Посудомоечная машина шириной 45 см (оптимально для семьи до 3 человек)'),
+    ('v06', 'Духовка под варочной панелью'),
+    ('v07', 'Духовка+Микроволновка в колонне'),
+    ('v08', 'Микроволновка отдельностоящая'),
+    ('v09', 'Варочная панель на 4 конфорки'),
+    ('v10', 'Варочная панель на 2 конфорки'),
+    ('v11', 'Диспоузер (измельчитель отходов)'),
+    ('v12', 'Стиральная машина'),
+    ('v13', 'Фильтр для воды под раковиной'),
+    ('v14', 'Раковина одинарная без крыла'),
+    ('v15', 'Раковина одинарная с крылом'),
+    ('v16', 'Вытяжка отдельная'),
+    ('v17', 'Вытяжка встроенная'),
+    ('v18', 'Раковина двойная'),
+    ('v19', 'Стол на 2 человека'),
+    ('v20', 'Стол на 4 человека'),
+    ('v21', 'Стол на 6 человек'),
+    ('v22', 'Стол должен быть раздвижной'),
+    ('v23', 'Круглая форма стола предпочтительнее'),
+    ('v24', 'Квадратная/прямоугольная форма стола предпочтительнее'),
+    ('v25', 'Телевизор'),
+    ('v26', 'Барная стойка'),
+    ('v27', 'Предусмотреть много места для хранения'),
+    ('v28', 'Предпочтительнее кухня без верхних шкафов'),
+    ('v29', 'Другое:'),
+)
+
+BEDROOM_CHOICES = (
+    ('v01', 'Кровать шириной 160 см'),
+    ('v02', 'Кровать шириной 180 см'),
+    ('v03', 'Кровать шириной 200 см'),
+    ('v04', 'Гардероб'),
+    ('v05', 'Комод'),
+    ('v06', 'Тумбы прикроватные'),
+    ('v07', 'Кресло'),
+    ('v08', 'Туалетный столик'),
+    ('v09', 'Рабочее место'),
+    ('v10', 'Детская кроватка'),
+    ('v11', 'Телевизор'),
+    ('v12', 'Другое:'),
+)
+
+LIVINGROOM_CHOICES = (
+    ('v01', 'Диван угловой'),
+    ('v02', 'Диван прямой'),
+    ('v03', 'ТВ'),
+    ('v04', 'Тумба под ТВ'),
+    ('v05', 'Система хранения'),
+    ('v06', 'Рабочее место'),
+    ('v07', 'Другое:'),
+)
+
+CHILDROOM_CHOICES = (
+    ('v01', 'Кроватка для младенца 60*120'),
+    ('v02', 'Кровать детская 80*160'),
+    ('v03', 'Кровать полноценная односпальная 90*200'),
+    ('v04', 'Кровать полноценная полутороспальная 120*200'),
+    ('v05', 'Кровать "растущая"'),
+    ('v06', 'Дополнительное спальное место (друзья, родственники)'),
+    ('v07', 'Кровать-чердак'),
+    ('v08', 'Рабочее место'),
+    ('v09', 'Хранение одежды'),
+    ('v10', 'Хранение игрушек'),
+    ('v11', 'Игровая зона'),
+    ('v12', 'Шведская стенка'),
+    ('v13', 'Телевизор'),
+    ('v14', 'Другое'),
+)
+
+BATHROOM_CHOICES = (
+    ('v01', 'Ванна чем больше, тем лучше'),
+    ('v02', 'Ванна, какая поместится'),
+    ('v03', 'Смеситель для ванны+душевой комплект'),
+    ('v04', 'Тропический душ'),
+    ('v05', 'Душевая'),
+    ('v06', 'Унитаз подвесной'),
+    ('v07', 'Унитаз с бачком'),
+    ('v08', 'Гигиенический душ'),
+    ('v09', 'Тумба с раковиной'),
+    ('v10', 'Зеркало с подсветкой'),
+    ('v11', 'Зеркальный шкафчик'),
+    ('v12', 'Стиральная машина'),
+    ('v13', 'Сушильная машина'),
+    ('v14', 'Полотенцесушитель электрический'),
+    ('v15', 'Полотенцесушитель водяной'),
+    ('v16', 'Водонагреватель 50 л (оптимально для семьи до 3 человек)'),
+    ('v17', 'Водонагреватель 80 л (оптимально для семьи из 4-5 человек)'),
+    ('v18', 'Проточный водонагреватель'),
+    ('v19', 'Другое'),
+)
+
+TOILET_CHOICES = (
+    ('v01', 'Душевая'),
+    ('v02', 'Унитаз подвесной'),
+    ('v03', 'Унитаз с бачком'),
+    ('v04', 'Гигиенический душ'),
+    ('v05', 'Тумба с раковиной'),
+    ('v06', 'Зеркало с подсветкой'),
+    ('v07', 'Зеркальный шкафчик'),
+    ('v08', 'Стиральная машина'),
+    ('v09', 'Сушильная машина'),
+    ('v10', 'Полотенцесушитель электрический'),
+    ('v11', 'Полотенцесушитель водяной'),
+    ('v12', 'Водонагреватель 50 л (оптимально для семьи до 3 человек)'),
+    ('v13', 'Водонагреватель 80 л (оптимально для семьи из 4-5 человек)'),
+    ('v14', 'Проточный водонагреватель'),
+    ('v15', 'Другое'),
+)
+
+class RoomFilling(models.Model):
+    def user_kitchen_path(instance, filename):
+        return f'upload/user_{instance.user.pk:03d}/kitchen_{filename}'
+    def user_bedroom_path(instance, filename):
+        return f'upload/user_{instance.user.pk:03d}/bedroom_{filename}'
+    def user_livingroom_path(instance, filename):
+        return f'upload/user_{instance.user.pk:03d}/livingroom_{filename}'
+    def user_childroom_path(instance, filename):
+        return f'upload/user_{instance.user.pk:03d}/childroom_{filename}'
+    def user_bathroom_path(instance, filename):
+        return f'upload/user_{instance.user.pk:03d}/bathroom_{filename}'
+    def user_toilet_path(instance, filename):
+        return f'upload/user_{instance.user.pk:03d}/toilet_{filename}'
+    def user_interior_path(instance, filename):
+        return f'upload/user_{instance.user.pk:03d}/interior_{filename}'
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    kitchen = MultiSelectField(choices=KITCHEN_CHOICES, default=None, null=True, blank=True)
+    kitchen_other = models.CharField(max_length=200, null=True, default=None, blank=True)
+    kitchen_photo = models.FileField(upload_to=user_kitchen_path, blank=True, null=True)
+    bedroom = MultiSelectField(choices=BEDROOM_CHOICES, default=None, null=True, blank=True)
+    bedroom_other = models.CharField(max_length=200, null=True, default=None, blank=True)
+    bedroom_photo = models.FileField(upload_to=user_bedroom_path, blank=True, null=True)
+    livingroom = MultiSelectField(choices=LIVINGROOM_CHOICES, default=None, null=True, blank=True)
+    livingroom_other = models.CharField(max_length=200, null=True, default=None, blank=True)
+    livingroom_photo = models.FileField(upload_to=user_livingroom_path, blank=True, null=True)
+    childroom = MultiSelectField(choices=CHILDROOM_CHOICES, default=None, null=True, blank=True)
+    childroom_other = models.CharField(max_length=200, null=True, default=None, blank=True)
+    childroom_photo = models.FileField(upload_to=user_childroom_path, blank=True, null=True)
+    bathroom = MultiSelectField(choices=BATHROOM_CHOICES, default=None, null=True, blank=True)
+    bathroom_other = models.CharField(max_length=200, null=True, default=None, blank=True)
+    bathroom_photo = models.FileField(upload_to=user_bathroom_path, blank=True, null=True)
+    toilet = MultiSelectField(choices=TOILET_CHOICES, default=None, null=True, blank=True)
+    toilet_other = models.CharField(max_length=200, null=True, default=None, blank=True)
+    toilet_photo = models.FileField(upload_to=user_toilet_path, blank=True, null=True)
+    additional = models.CharField(max_length=200, null=True, default=None, blank=True)
+    interior_photos = models.FileField(upload_to=user_interior_path, blank=True, null=True)

@@ -4,7 +4,7 @@ from django.db import models
 from django.db.models import fields
 from django.forms import widgets
 
-from survey.models import Personal, Visual, MATS_CHOICES
+from survey.models import Personal, RoomFilling, Visual, MATS_CHOICES
 
 
 class PersonalForm(forms.Form):
@@ -43,7 +43,6 @@ class VisualForm(forms.ModelForm):
 
 
         widgets = {
-            # 'materials': forms.CheckboxSelectMultiple(choices=MATS_CHOICES),
             'material_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
             'style_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
             'unsuitable': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
@@ -51,4 +50,26 @@ class VisualForm(forms.ModelForm):
             'planning_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
             'planning_type_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
 
+        }
+
+class RoomForm(forms.ModelForm):
+
+    class Meta:
+        model = RoomFilling
+        fields = '__all__'
+        widgets = {
+            'kitchen_photo': forms.FileInput(),
+            'kitchen_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            'bedroom_photo': forms.FileInput(),
+            'bedroom_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            'livingroom_photo': forms.FileInput(),
+            'livingroom_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            'childroom_photo': forms.FileInput(),
+            'childroom_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            'bathroom_photo': forms.FileInput(),
+            'bathroom_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            'toilet_photo': forms.FileInput(),
+            'toilet_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            'additional': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            'interior_photos': forms.FileInput(),
         }
