@@ -1,0 +1,44 @@
+{% extends "survey/layout.html" %}
+
+{% block body %}
+    {% if request.user.is_authenticated %}
+    {% load static %}
+    <div><h3>Освещение</h3></div>
+    <div>Опишите или отметьте пожелания по типу освещения</div>
+    <form action="{% url 'light' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="quest" >
+                <div>User?</div>
+                <div>{{ form.user }}</div>
+            </div>
+
+            <div>Выберите типы освещения, которые вам нравятся. Все светильники на фото показаны для описания типа освещения (внешний вид светильников в каждом проекте соответствует стилистике проекта)</div>
+            {% for value, text in form.lights.field.choices %}
+            <div class="form-check">
+                <input class="form-check-input" id="id_lights_{{ forloop.counter0 }}" name="{{ form.lights.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                <label class="form-check-label" for="id_lights_{{ forloop.counter0 }}"><img src="{% static 'lights/' %}{{ value }}.jpg">{{ text }}</label>
+            </div>
+            {% endfor %}
+            <div class="quest">
+                <div></div>
+                <div>{{ form.lights_other|safe }}</div>
+            </div>
+
+            <div>Цветовая температура освещения</div>
+            <div><img src="{% static 'lights/' %}light.jpg" ></div>
+            {% for value, text in form.temperature.field.choices %}
+            <div class="form-check">
+                <input class="form-check-input " id="id_temperature_{{ forloop.counter0 }}" name="{{ form.temperature.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                <label class="form-check-label " for="id_temperature_{{ forloop.counter0 }}">{{ text }}</label>
+            </div>
+            {% endfor %}
+            <div class="quest">
+                <div></div>
+                <div>{{ form.temp_other|safe }}</div>
+            </div>
+            
+            
+            <input class="btn btn-primary" type="submit" value="Далее">
+    </form>
+    {% endif %}
+{% endblock %}

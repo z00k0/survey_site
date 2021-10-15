@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.db import IntegrityError
 from django import forms
 
-from survey.forms import PersonalForm, RoomForm, VisualForm
+from survey.forms import LightForm, PersonalForm, RoomForm, VisualForm
 
 from .models import RoomFilling, User, Personal, Visual
 
@@ -145,5 +145,26 @@ def filling(request):
             })
     form = RoomForm()
     return render(request, 'survey/filling.html', {
+        'form': form,
+    })
+
+def light(request):
+    context = {}
+    if request.method == 'POST':
+        user = User.objects.get(username=request.user)
+        form = LightForm(request.POST)
+        context['form'] = form
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            new_form.user = user
+            new_form.save()
+            return HttpResponseRedirect('light')
+        else:
+            print(f'error: {new_form.errors.as_data()}')
+            return render(request, 'survey/light.html', {
+                'form': form,
+            })
+    form = LightForm()
+    return render(request, 'survey/light.html', {
         'form': form,
     })

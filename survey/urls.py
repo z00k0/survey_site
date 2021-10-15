@@ -11,5 +11,6 @@ urlpatterns = [
     path('personal', views.personal, name='personal'),
     path('visual', views.visual, name='visual'),
     path('filling', views.filling, name='filling'),
+    path('light', views.light, name='light'),
 
 ]

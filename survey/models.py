@@ -291,3 +291,34 @@ class RoomFilling(models.Model):
     toilet_photo = models.FileField(upload_to=user_toilet_path, blank=True, null=True)
     additional = models.CharField(max_length=200, null=True, default=None, blank=True)
     interior_photos = models.FileField(upload_to=user_interior_path, blank=True, null=True)
+
+LIGHT_CHOICES = (
+    ('l01', 'встроенные точечные светильники (обеспечивают основное равномерное освещение)'),
+    ('l02', 'накладные точечные споты (в зависимости от типа лампы обеспечивают равномерное или акцентное освещение)'),
+    ('l03', 'светодиодная подсветка потолка (освещение для создания уютной атмосферы)'),
+    ('l04', 'светодиодная подсветка стен, ниш, мебели (освещение для создания уютной атмосферы)'),
+    ('l05', 'трековое освещение - встроенное\накладное (в зависимости от типа светильника используется в разных видах освещения)'),
+    ('l06', 'подвесные светильники (в зависимости от типа плафона обеспечивают функциональное освещение поверхностей или рассеивают свет)'),
+    ('l07', 'потолочные светильники ("люстры") (как общее, так и декоративное освещение)'),
+    ('l08', 'настенные светильники (бра)'),
+    ('l09', 'светильники, которые включаются в розетку (напольные и настольные лампы)'),
+    ('l10', 'Другое:'),
+)
+
+TEMP_CHOICES = (
+    ('l01', '6000К холодный цвет (используется в основном в больших пространствах типа музеев, торговых центров и т.д.)'),
+    ('l02', '4000-4500К нейтральный цвет (оптимально для общего освещения в квартирах и офисах)'),
+    ('l03', '3000К теплый цвет (чаще используется в подсветках, торшерах и других источниках света, создающих уютную атмосферу)'),
+    ('l04', 'Другое:'),
+)
+
+
+class Light(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    lights = MultiSelectField(choices=LIGHT_CHOICES, default=None, null=True, blank=True)
+    lights_other = models.CharField(max_length=200, null=True, default=None, blank=True)
+    temperature = MultiSelectField(choices=TEMP_CHOICES, default=None, null=True, blank=True)
+    temp_other = models.CharField(max_length=200, null=True, default=None, blank=True)
+
+
+
