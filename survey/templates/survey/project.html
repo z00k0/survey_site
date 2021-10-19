@@ -23,35 +23,50 @@
     </div>
     <form action="{% url 'project' %}" method="post">
             {% csrf_token %}
+            <div class="quest" >
+                <div>User?</div>
+                <div>{{ form.user }}</div>
+            </div>
 
             <div class="quest">
                 <div>Достаточно ли вам такого наполнения проекта?</div>
-                {% for item in form.contents %}
-                <div>{{ item }}</div>
+                {% for  value, text in form.contents.field.choices %}
+                <div class="form-check">
+                    <input class="form-check-input " id="id_contents_{{ forloop.counter0 }}" name="{{ form.contents.name }}" type="radio" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label " for="id_contents_{{ forloop.counter0 }}">{{ text }}</label>
+                </div>
                 {% endfor %}
             </div>
             <div class="quest">
                 <div></div>
                 <div>{{ form.content_other|safe }}</div>
             </div>
-
+            
+            <div>----------</div>
             <div class="quest">
                 <div>Срочность выполнения проекта:</div>
-                {% for item in form.urgencies %}
-                <div>{{item}}</div>
+                {% for  value, text in form.urgencies.field.choices %}
+                <div class="form-check">
+                    <input class="form-check-input " id="id_urgencies_{{ forloop.counter0 }}" name="{{ form.urgencies.name }}" type="radio" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label " for="id_urgencies_{{ forloop.counter0 }}">{{ text }}</label>
+                </div>
                 {% endfor %}
             </div>
             <div class="quest">
                 <div></div>
                 <div>{{ form.urgencies_other|safe }}</div>
             </div>
-
+            <div>----------</div>
             <div class="quest">
                 <div>Способы коммуникации при работе над проектом:</div>
-                {% for item in form.communications %}
-                <div>{{item}}</div>
+                {% for  value, text in form.communications.field.choices %}
+                <div class="form-check">
+                    <input class="form-check-input " id="id_communications_{{ forloop.counter0 }}" name="{{ form.communications.name }}" type="radio" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label " for="id_communications_{{ forloop.counter0 }}">{{ text }}</label>
+                </div>
                 {% endfor %}
             </div>
+            <div>----------</div>
             <div class="quest">
                 <div></div>
                 <div>{{ form.communications_other|safe }}</div>

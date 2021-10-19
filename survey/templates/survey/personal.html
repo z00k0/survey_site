@@ -39,26 +39,30 @@
             </div>
             <div class="quest">
                 <div>Комплектация объекта:</div>
-                {% for item in form.equip_s %}
-                <div>{{ item }}</div>
+                {% for value, text in form.equip_s.field.choices %}
+                <div class="form-check">
+                    <input class="form-check-input" id="id_equip_s_{{ forloop.counter0 }}" name="{{ form.equip_s.name }}" type="radio" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label" for="id_equip_s_{{ forloop.counter0 }}">{{ text }}</label>
+                </div>
                 {% endfor %}
-            </div>
-            <div class="quest">
-                <div></div>
                 <div>{{ form.equip|safe }}</div>
             </div>
-
             <div class="quest">
                 <div>Стиль работы над проектом с дизайнером:</div>
-                {% for item in form.project_style %}
-                <div>{{item}}</div>
+                {% for value, text in form.project_style.field.choices %}
+                <div class="form-check">
+                    <input class="form-check-input" id="id_project_style_{{ forloop.counter0 }}" name="{{ form.project_style.name }}" type="radio" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label" for="id_project_style_{{ forloop.counter0 }}">{{ text }}</label>
+                </div>
                 {% endfor %}
             </div>
-
             <div class="quest">
                 <div>Красота или практичность?</div>
-                {% for item in form.beauty %}
-                <div>{{item}}</div>
+                {% for value, text in form.beauty.field.choices %}
+                <div class="form-check">
+                    <input class="form-check-input" id="id_beauty_{{ forloop.counter0 }}" name="{{ form.beauty.name }}" type="radio" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label" for="id_beauty_{{ forloop.counter0 }}">{{ text }}</label>
+                </div>
                 {% endfor %}
             </div>
 

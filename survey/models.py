@@ -128,16 +128,16 @@ PLANNING_TYPE_CHOICES = (
 
 class Visual(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    materials = MultiSelectField(choices=MATS_CHOICES, default=None) #  , choices=MatChoice.choices
+    materials = MultiSelectField(choices=MATS_CHOICES, null=True, default=None, blank=True) #  , choices=MatChoice.choices
     material_other = models.CharField(max_length=200, null=True, default=None, blank=True)
-    styles = MultiSelectField(choices=STYLE_CHOICES, default=False)
+    styles = MultiSelectField(choices=STYLE_CHOICES, default=None, null=True, blank=True)
     style_other = CharField(max_length=200, null=True, default=None, blank=True)
     unsuitable = CharField(max_length=200, null=True, default=None, blank=True)
-    furniture = MultiSelectField(choices=FURNITURE_CHOICES, default=None)
+    furniture = MultiSelectField(choices=FURNITURE_CHOICES, default=None, null=True, blank=True)
     furniture_other = CharField(max_length=200, null=True, default=None, blank=True)
-    planning = MultiSelectField(choices=PLANNING_CHOICES, default=None)
+    planning = MultiSelectField(choices=PLANNING_CHOICES, default=None, null=True, blank=True)
     planning_other = CharField(max_length=200, null=True, default=None, blank=True)
-    planning_type = MultiSelectField(choices=PLANNING_TYPE_CHOICES, default=None)
+    planning_type = MultiSelectField(choices=PLANNING_TYPE_CHOICES, default=None, null=True, blank=True)
     planning_type_other = CharField(max_length=200, null=True, default=None, blank=True)
 
 KITCHEN_CHOICES = (
@@ -423,14 +423,14 @@ class Tech(models.Model):
 
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    
+
     class Content(models.TextChoices):
         v1 = 'v1', _('Да, вполне достаточно'),
         v2 = 'v2', _('Нужна полная визуализация всех помещений'),
         v3 = 'v3', _('Нужна дополнительная выездная консультация дизайнера'),
         v4 = 'v4', _('Нужно полное сопровождение вплоть до штор, торшеров и посуды')
         v5 = 'v5', _('Другое:')
-    
+
     contents = models.CharField(max_length=2, default=None, blank=False, choices=Content.choices)
     content_other = models.CharField(max_length=500, blank=True, null=True, default=None)
 
@@ -443,12 +443,11 @@ class Project(models.Model):
     urgencies = models.CharField(max_length=2, default=None, blank=False, choices=Urgency.choices)
     urgencies_other = models.CharField(max_length=500, blank=True, null=True, default=None)
 
-
     class Communication(models.TextChoices):
         v1 = 'v1', _('Онлайн по любому виду мессенджеров вполне комфортно'),
         v2 = 'v2', _('Хотелось бы обсудить все делали при личной встрече'),
         v3 = 'v3', _('Другое:'),
 
     communications = models.CharField(max_length=2, default=None, blank=False, choices=Communication.choices)
-    communications_other = models.CharField(max_length=500, blank=False, default=None)
+    communications_other = models.CharField(max_length=500, blank=True, default=None)
     additions = models.CharField(max_length=300, null=True, default=None, blank=True)

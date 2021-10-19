@@ -179,7 +179,7 @@ def tech(request):
             new_form = form.save(commit=False)
             new_form.user = user
             new_form.save()
-            return HttpResponseRedirect('tech')
+            return HttpResponseRedirect('project')
         else:
             print(f'error: {form.errors.as_data()}')
             return render(request, 'survey/tech.html', {
@@ -198,7 +198,7 @@ def project(request):
             new_form = form.save(commit=False)
             new_form.user = user
             new_form.save()
-            return HttpResponseRedirect('project')
+            return HttpResponseRedirect('/')
         else:
             print(f'error: {form.errors.as_data}')
             return render(request, 'survey/project.html', {

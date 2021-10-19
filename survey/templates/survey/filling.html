@@ -11,48 +11,46 @@
                 <div>User?</div>
                 <div>{{ form.user }}</div>
             </div>
-
-            <div>Кухня</div>
-            {% for value, text in form.kitchen.field.choices %}
-            <div class="form-check">
-                <input class="form-check-input" id="id_kitchen_{{ forloop.counter0 }}" name="{{ form.kitchen.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
-                <label class="form-check-label" for="id_kitchen_{{ forloop.counter0 }}">{{ text }}</label>
-            </div>
-            {% endfor %}
             <div class="quest">
-                <div></div>
+                <div>Кухня</div>
+                {% for value, text in form.kitchen.field.choices %}
+                <div class="form-check">
+                    <input class="form-check-input" id="id_kitchen_{{ forloop.counter0 }}" name="{{ form.kitchen.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label" for="id_kitchen_{{ forloop.counter0 }}">{{ text }}</label>
+                </div>
+                {% endfor %}
                 <div>{{ form.kitchen_other|safe }}</div>
             </div>
+            
             <div class="quest">
                 <div>Как выглядит кухня мечты (если есть фото):</div>
                 <div>{{ form.kitchen_photo|safe }}</div>
             </div>
 
-            <div>Спальня</div>
-            {% for value, text in form.bedroom.field.choices %}
-            <div class="form-check">
-                <input class="form-check-input " id="id_bedroom_{{ forloop.counter0 }}" name="{{ form.bedroom.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
-                <label class="form-check-label " for="id_bedroom_{{ forloop.counter0 }}">{{ text }}</label>
-            </div>
-            {% endfor %}
             <div class="quest">
-                <div></div>
+                <div>Спальня</div>
+                {% for value, text in form.bedroom.field.choices %}
+                <div class="form-check">
+                    <input class="form-check-input " id="id_bedroom_{{ forloop.counter0 }}" name="{{ form.bedroom.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label " for="id_bedroom_{{ forloop.counter0 }}">{{ text }}</label>
+                </div>
+                {% endfor %}
                 <div>{{ form.bedroom_other|safe }}</div>
             </div>
+            
             <div class="quest">
                 <div>Как выглядит спальня мечты (если есть фото):</div>
                 <div>{{ form.bedroom_photo|safe }}</div>
             </div>
 
-            <div>Гостиная</div>
-            {% for value, text in form.livingroom.field.choices %}
-            <div class="form-check ">
-                <input class="form-check-input " id="id_livingroom_{{ forloop.counter0 }}" name="{{ form.livingroom.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
-                <label class="form-check-label " for="id_livingroom_{{ forloop.counter0 }}">{{ text }}</label>
-            </div>
-            {% endfor %}
             <div class="quest">
-                <div></div>
+                <div>Гостиная</div>
+                {% for value, text in form.livingroom.field.choices %}
+                <div class="form-check ">
+                    <input class="form-check-input " id="id_livingroom_{{ forloop.counter0 }}" name="{{ form.livingroom.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label " for="id_livingroom_{{ forloop.counter0 }}">{{ text }}</label>
+                </div>
+                {% endfor %}
                 <div>{{ form.livingroom_other|safe }}</div>
             </div>
             <div class="quest">
@@ -60,31 +58,28 @@
                 <div>{{ form.livingroom_photo|safe }}</div>
             </div>
 
-            <div>Детская</div>
-            {% for value, text in form.childroom.field.choices %}
-            <div class="form-check ">
-                <input class="form-check-input " id="id_childroom_{{ forloop.counter0 }}" name="{{ form.childroom.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
-                <label class="form-check-label " for="id_childroom_{{ forloop.counter0 }}">{{ text }}</label>
-            </div>
-            {% endfor %}
             <div class="quest">
-                <div></div>
+                <div>Детская</div>
+                {% for value, text in form.childroom.field.choices %}
+                <div class="form-check ">
+                    <input class="form-check-input " id="id_childroom_{{ forloop.counter0 }}" name="{{ form.childroom.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label " for="id_childroom_{{ forloop.counter0 }}">{{ text }}</label>
+                </div>
+                {% endfor %}
                 <div>{{ form.childroom_other|safe }}</div>
             </div>
             <div class="quest">
                 <div>Детская мечты (если есть фото):</div>
                 <div>{{ form.childroom_photo|safe }}</div>
             </div>
-
-            <div>Ванная</div>
-            {% for value, text in form.bathroom.field.choices %}
-            <div class="form-check ">
-                <input class="form-check-input " id="id_bathroom_{{ forloop.counter0 }}" name="{{ form.bathroom.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
-                <label class="form-check-label " for="id_bathroom_{{ forloop.counter0 }}">{{ text }}</label>
-            </div>
-            {% endfor %}
             <div class="quest">
-                <div></div>
+                <div>Ванная</div>
+                {% for value, text in form.bathroom.field.choices %}
+                <div class="form-check ">
+                    <input class="form-check-input " id="id_bathroom_{{ forloop.counter0 }}" name="{{ form.bathroom.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label " for="id_bathroom_{{ forloop.counter0 }}">{{ text }}</label>
+                </div>
+                {% endfor %}
                 <div>{{ form.bathroom_other|safe }}</div>
             </div>
             <div class="quest">
@@ -92,15 +87,14 @@
                 <div>{{ form.bathroom_photo|safe }}</div>
             </div>
 
-            <div>Туалет</div>
-            {% for value, text in form.toilet.field.choices %}
-            <div class="form-check ">
-                <input class="form-check-input " id="id_toilet_{{ forloop.counter0 }}" name="{{ form.toilet.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
-                <label class="form-check-label " for="id_toilet_{{ forloop.counter0 }}">{{ text }}</label>
-            </div>
-            {% endfor %}
             <div class="quest">
-                <div></div>
+            <div>Туалет</div>
+                {% for value, text in form.toilet.field.choices %}
+                <div class="form-check ">
+                    <input class="form-check-input " id="id_toilet_{{ forloop.counter0 }}" name="{{ form.toilet.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label " for="id_toilet_{{ forloop.counter0 }}">{{ text }}</label>
+                </div>
+                {% endfor %}
                 <div>{{ form.toilet_other|safe }}</div>
             </div>
             <div class="quest">

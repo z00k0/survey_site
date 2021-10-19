@@ -7,78 +7,72 @@
     <form action="{% url 'visual' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="quest" >
-                <div>User?</div>
                 <div>{{ form.user }}</div>
             </div>
-
-            <div>Какие материалы и элементы оформления хотелось бы видеть в интерьере?</div>
-            {% for value, text in form.materials.field.choices %}
-            <div class="form-check">
-                <input class="form-check-input" id="id_materials_{{ forloop.counter0 }}" name="{{ form.materials.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
-                <label class="form-check-label" for="id_materials_{{ forloop.counter0 }}">{{ text }}</label>
-            </div>
-            {% endfor %}
             <div class="quest">
-                <div></div>
-                <div>{{ form.material_other|safe }}</div>
+                <div><h5>Какие материалы и элементы оформления хотелось бы видеть в интерьере?</h5></div>
+                {% for value, text in form.materials.field.choices %}
+                <div class="form-check">
+                    <input class="form-check-input" id="id_materials_{{ forloop.counter0 }}" name="{{ form.materials.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label" for="id_materials_{{ forloop.counter0 }}">{{ text }}</label>
+                </div>
+                {% endfor %}
+                <div>
+                    <div>{{ form.material_other|safe }}</div>
+                </div>
             </div>
-
-            <div>Стилевое направление (выберите интерьеры, которые для вам нравятся)</div>
-            {% for value, text in form.styles.field.choices %}
-            <div class="form-check d-inline-flex flex-row flex-wrap align-items-end">
-                <input class="form-check-input col-md-3" id="id_styles_{{ forloop.counter0 }}" name="{{ form.styles.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
-                <label class="form-check-label col-md-3" for="id_styles_{{ forloop.counter0 }}"><img src="{% static 'style/' %}{{ text }}.jpg"></label>
-            </div>
-            {% endfor %}
-
             <div class="quest">
-                <div></div>
-                <div>{{ form.style_other|safe }}</div>
+                <div><h5>Стилевое направление (выберите интерьеры, которые для вам нравятся)</h5></div>
+                {% for value, text in form.styles.field.choices %}
+                <div class="form-check d-inline-flex flex-row flex-wrap align-items-center img-choice">
+                    <input class="form-check-input col-md-3" id="id_styles_{{ forloop.counter0 }}" name="{{ form.styles.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label col-md-3" for="id_styles_{{ forloop.counter0 }}"><img src="{% static 'style/' %}{{ text }}.jpg"></label>
+                </div>
+                {% endfor %}
+                    <div>{{ form.style_other|safe }}</div>
+                </div>
             </div>
-
-            <div>Что для Вас категорически неприемлемо в оформлении интерьера? (цвета, элементы декора и тд)</div>
             <div class="quest">
-                <div></div>
-                <div>{{ form.style_other|safe }}</div>
+                <div>
+                    <div><h5>Что для Вас категорически неприемлемо в оформлении интерьера? (цвета, элементы декора и тд)</h5></div>
+                        <div>{{ form.style_other|safe }}</div>
+                    </div>
+                </div>
             </div>
-
-            <div>Какую мебель планируете использовать?</div>
-            {% for value, text in form.furniture.field.choices %}
-            <div class="form-check">
-                <input class="form-check-input" id="id_furniture_{{ forloop.counter0 }}" name="{{ form.furniture.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
-                <label class="form-check-label" for="id_furniture_{{ forloop.counter0 }}">{{ text }}</label>
-            </div>
-            {% endfor %}
             <div class="quest">
-                <div></div>
-                <div>{{ form.furniture_other|safe }}</div>
+                <div><h5>Какую мебель планируете использовать?</h5></div>
+                {% for value, text in form.furniture.field.choices %}
+                <div class="form-check">
+                    <input class="form-check-input" id="id_furniture_{{ forloop.counter0 }}" name="{{ form.furniture.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label" for="id_furniture_{{ forloop.counter0 }}">{{ text }}</label>
+                </div>
+                {% endfor %}
+                    <div>{{ form.furniture_other|safe }}</div>
+                </div>
             </div>
-
-            <div>В планировке нужно предусмотреть следующие помещения:</div>
-            {% for value, text in form.planning.field.choices %}
-            <div class="form-check">
-                <input class="form-check-input" id="id_planning_{{ forloop.counter0 }}" name="{{ form.planning.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
-                <label class="form-check-label" for="id_planning_{{ forloop.counter0 }}">{{ text }}</label>
-            </div>
-            {% endfor %}
             <div class="quest">
-                <div></div>
-                <div>{{ form.planning_other|safe }}</div>
+                <div><h5>В планировке нужно предусмотреть следующие помещения:</h5></div>
+                {% for value, text in form.planning.field.choices %}
+                <div class="form-check">
+                    <input class="form-check-input" id="id_planning_{{ forloop.counter0 }}" name="{{ form.planning.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label" for="id_planning_{{ forloop.counter0 }}">{{ text }}</label>
+                </div>
+                {% endfor %}
+                    <div>{{ form.planning_other|safe }}</div>
+                </div>
             </div>
-
-            <div>Будет ли перепланировка?</div>
-            {% for value, text in form.planning_type.field.choices %}
-            <div class="form-check">
-                <input class="form-check-input" id="id_planning_type_{{ forloop.counter0 }}" name="{{ form.planning_type.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
-                <label class="form-check-label" for="id_planning_type_{{ forloop.counter0 }}">{{ text }}</label>
-            </div>
-            {% endfor %}
-            <div>Подробно опишите перепланировку, которую хотелось бы сделать. Если ее не будет, оставьте графу пустой</div>
             <div class="quest">
-                <div></div>
-                <div>{{ form.planning_type_other|safe }}</div>
+                <div><h5>Будет ли перепланировка?</h5></div>
+                {% for value, text in form.planning_type.field.choices %}
+                <div class="form-check">
+                    <input class="form-check-input" id="id_planning_type_{{ forloop.counter0 }}" name="{{ form.planning_type.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label" for="id_planning_type_{{ forloop.counter0 }}">{{ text }}</label>
+                </div>
+                {% endfor %}
+                <div><h5>Подробно опишите перепланировку, которую хотелось бы сделать. Если ее не будет, оставьте графу пустой</h5></div>
+                    <div>{{ form.planning_type_other|safe }}</div>
+                </div>
             </div>
-
             <input class="btn btn-primary" type="submit" value="Далее">
     </form>
     {% endif %}
