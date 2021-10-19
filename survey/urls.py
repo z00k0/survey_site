@@ -12,5 +12,7 @@ urlpatterns = [
     path('visual', views.visual, name='visual'),
     path('filling', views.filling, name='filling'),
     path('light', views.light, name='light'),
+    path('tech', views.tech, name='tech'),
+    path('project', views.project, name='project'),
 
 ]

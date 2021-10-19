@@ -321,4 +321,134 @@ class Light(models.Model):
     temp_other = models.CharField(max_length=200, null=True, default=None, blank=True)
 
 
+WALLS_CHOICES = (
+    ('t01', 'Крашеные стены (Ровные гладкие стены, окрашенные в выбранный цвет. Самый дорогостоящий вариант отделки в базовом проекте)'),
+    ('t02', 'Гладкие обои под покраску (Ровные гладкие стены, подготовленные под покраску с помощью оклейки гладкими обоями под покраску. Оптимальный вариант базовой отделки)'),
+    ('t03', 'Декоративные обои (Любые декоративные обои, выбранные вами. Стоимость варьируется от стоимости самих обоев)'),
+    ('t04', 'Декоративная штукатурка'),
+    ('t05', 'Уточнить с дизайнером'),
+    ('t06', 'Другое'),
+)
 
+FLOOR_CHOICES = (
+    ('t01', 'Ламинат'),
+    ('t02', 'Паркетная или инженерная доска'),
+    ('t03', 'Кварцвинил'),
+    ('t04', 'Керамогранит в коридоре'),
+    ('t05', 'Керамогранит на кухне'),
+    ('t06', 'Керамогранит на лоджии/балконе'),
+    ('t07', 'Укладка покрытия без порогов'),
+    ('t08', 'Уточнить с дизайнером'),
+    ('t09', 'Другое'),
+)
+
+DOOR_CHOICES = (
+    ('t01', 'Замена входной двери (рекомендуется в случае "жиденькой" двери от застройщика)'),
+    ('t02', 'Двери скрытого монтажа'),
+    ('t03', 'Двери раздвижные'),
+    ('t04', 'Дверь-пенал (сдвигается в стену)'),
+    ('t05', 'Стеклянные перегородки'),
+    ('t06', 'Обычные двери'),
+    ('t07', 'Уточнить с дизайнером'),
+    ('t08', 'Другое'),
+)
+
+WINDOW_CHOICES = (
+    ('w01', 'Откосы окон, отделанные сендвич-панелями'),
+    ('w02', 'Откосы окон, отделанные штукатуркой и окрашенные'),
+    ('w03', 'Пластиковый подоконник белый матовый (базовый вариант)'),
+    ('w04', 'Оштукатуренный подоконник, окрашенный влагостойкой краской (если не планируется функционально использоваться)'),
+    ('w05', 'Замена окон'),
+    ('w06', 'Замена стеклопакетов'),
+    ('w07', 'Замена/установка подоконников'),
+    ('w08', 'Уточнить с дизайнером'),
+    ('w09', 'Другое'),
+)
+
+CEIL_CHOICES = (
+    ('c01', 'Бесщелевое примыкание потолка к стенам (система KRAAB)'),
+    ('c02', 'Теневой профиль на стыке потолка и стен (система KRAAB)'),
+    ('c03', 'Стандартный профиль примыкания'),
+    ('c04', 'Устройство закладной для монтажа потолочных карнизов (бюджетный вариант)'),
+    ('c05', 'Устройство ниши для штор с интегрированным трехрядным карнизом (с возможностью установки подсветки)'),
+    ('c06', 'Белый матовый ПВХ'),
+    ('c07', 'Белый матовый тканевый'),
+    ('c08', 'Гипсокартон+покраска'),
+    ('c09', 'Ниши для штор не нужны, будут настенные карнизы'),
+    ('c10', 'Уточнить с дизайнером'),
+    ('c11', 'Другое'),
+)
+
+HEATING_CHOICES = (
+    ('h01', 'Установка дизайнерского радиатора (на картинке один из вариантов)'),
+    ('h02', 'Установка внутрипольного конвектора'),
+    ('h03', 'Подводы для радиатора из стены'),
+    ('h04', 'Стандартное подключение с пола'),
+    ('h05', 'Требуется замена радиаторов'),
+    ('h06', 'Требуется перенос радиаторов/радиаторов'),
+    ('h07', 'Уточнить с дизайнером'),
+    ('h08', 'Другое'),
+)
+
+ELECTRTIC_CHOICES = (
+    ('e01', 'Щиток электрический - замена'),
+    ('e02', 'Щиток электрический - перенос'),
+    ('e03', 'Видеодомофон'),
+    ('e04', 'Обычная трубка домофона+звонок'),
+    ('e05', 'Подготовка под установку кондиционеров (монтаж трассы и электрики, без установки блоков кондиционеров)'),
+    ('e06', 'Уточнить с дизайнером'),
+    ('e07', 'Другое'),
+)
+
+class Tech(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    walls = MultiSelectField(choices=WALLS_CHOICES, default=None, null=True, blank=True)
+    walls_other = models.CharField(max_length=200, null=True, default=None, blank=True)
+    floors = MultiSelectField(choices=FLOOR_CHOICES, default=None, null=True, blank=True)
+    floors_other = models.CharField(max_length=200, null=True, default=None, blank=True)
+    doors = MultiSelectField(choices=DOOR_CHOICES, default=None, null=True, blank=True)
+    doors_other = models.CharField(max_length=200, null=True, default=None, blank=True)
+    windows = MultiSelectField(choices=WINDOW_CHOICES, default=None, null=True, blank=True)
+    windows_other = models.CharField(max_length=200, null=True, default=None, blank=True)
+    ceil = MultiSelectField(choices=CEIL_CHOICES, default=None, null=True, blank=True)
+    ceil_other = models.CharField(max_length=200, null=True, default=None, blank=True)
+    heating = MultiSelectField(choices=HEATING_CHOICES, default=None, null=True, blank=True)
+    heating_other = models.CharField(max_length=200, null=True, default=None, blank=True)
+    conditioner = models.CharField(max_length=200, null=True, default=None, blank=True)
+    warm_floor = models.CharField(max_length=200, null=True, default=None, blank=True)
+    electric = MultiSelectField(choices=ELECTRTIC_CHOICES, default=None, null=True, blank=True)
+    electric_other = models.CharField(max_length=200, null=True, default=None, blank=True)
+    additional = models.CharField(max_length=200, null=True, default=None, blank=True)
+
+
+class Project(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    class Content(models.TextChoices):
+        v1 = 'v1', _('Да, вполне достаточно'),
+        v2 = 'v2', _('Нужна полная визуализация всех помещений'),
+        v3 = 'v3', _('Нужна дополнительная выездная консультация дизайнера'),
+        v4 = 'v4', _('Нужно полное сопровождение вплоть до штор, торшеров и посуды')
+        v5 = 'v5', _('Другое:')
+    
+    contents = models.CharField(max_length=2, default=None, blank=False, choices=Content.choices)
+    content_other = models.CharField(max_length=500, blank=True, null=True, default=None)
+
+    class Urgency (models.TextChoices):
+        v1 = 'v1', _('Не дольше 38 дней (это минимальное время на описанного выше наполнения проекта, если требуется визуализация, сроки увеличиваются на 15-20 дней)'),
+        v2 = 'v2', _('Располагаю временем до 3 месяцев на проект'),
+        v3 = 'v3', _('Располагаю временем настолько, насколько потребуется для детальной проработки всех нюансов'),
+        v4 = 'v4', _('Другое:')
+
+    urgencies = models.CharField(max_length=2, default=None, blank=False, choices=Urgency.choices)
+    urgencies_other = models.CharField(max_length=500, blank=True, null=True, default=None)
+
+
+    class Communication(models.TextChoices):
+        v1 = 'v1', _('Онлайн по любому виду мессенджеров вполне комфортно'),
+        v2 = 'v2', _('Хотелось бы обсудить все делали при личной встрече'),
+        v3 = 'v3', _('Другое:'),
+
+    communications = models.CharField(max_length=2, default=None, blank=False, choices=Communication.choices)
+    communications_other = models.CharField(max_length=500, blank=False, default=None)
+    additions = models.CharField(max_length=300, null=True, default=None, blank=True)

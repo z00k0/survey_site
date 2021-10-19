@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.db import IntegrityError
 from django import forms
 
-from survey.forms import LightForm, PersonalForm, RoomForm, VisualForm
+from survey.forms import LightForm, PersonalForm, ProjectForm, RoomForm, TechForm, VisualForm
 
 from .models import RoomFilling, User, Personal, Visual
 
@@ -94,7 +94,7 @@ def personal(request):
                 beauty=beauty,
             )
             mod.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('visual')
         else:
             return render(request, 'survey/personal.html', {
                 'form': form,
@@ -115,7 +115,7 @@ def visual(request):
             new_form = form.save(commit=False)
             new_form.user = user
             new_form.save()
-            return HttpResponseRedirect('visual')
+            return HttpResponseRedirect('filling')
         else:
             print(f'error: {form.errors.as_data()=}')
             return render(request, 'survey/visual.html', {
@@ -137,7 +137,7 @@ def filling(request):
             new_form = form.save(commit=False)
             new_form.user = user
             new_form.save()
-            return HttpResponseRedirect('filling')
+            return HttpResponseRedirect('light')
         else:
             print(f'error: {form.errors.as_data()}')
             return render(request, 'survey/filling.html', {
@@ -158,7 +158,7 @@ def light(request):
             new_form = form.save(commit=False)
             new_form.user = user
             new_form.save()
-            return HttpResponseRedirect('light')
+            return HttpResponseRedirect('tech')
         else:
             print(f'error: {new_form.errors.as_data()}')
             return render(request, 'survey/light.html', {
@@ -166,5 +166,45 @@ def light(request):
             })
     form = LightForm()
     return render(request, 'survey/light.html', {
+        'form': form,
+    })
+
+def tech(request):
+    context = {}
+    if request.method == 'POST':
+        user = User.objects.get(username=request.user)
+        form = TechForm(request.POST)
+        context['form'] = form
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            new_form.user = user
+            new_form.save()
+            return HttpResponseRedirect('tech')
+        else:
+            print(f'error: {form.errors.as_data()}')
+            return render(request, 'survey/tech.html', {
+                'form': form,
+            })
+    form = TechForm()
+    return render(request, 'survey/tech.html', {
+        'form': form,
+    })
+
+def project(request):
+    if request.method == 'POST':
+        user = request.user
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            new_form.user = user
+            new_form.save()
+            return HttpResponseRedirect('project')
+        else:
+            print(f'error: {form.errors.as_data}')
+            return render(request, 'survey/project.html', {
+                'form': form,
+            })
+    form = ProjectForm()
+    return render(request, 'survey/project.html', {
         'form': form,
     })

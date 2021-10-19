@@ -4,7 +4,7 @@ from django.db import models
 from django.db.models import fields
 from django.forms import widgets
 
-from survey.models import Light, Personal, RoomFilling, Visual, MATS_CHOICES
+from survey.models import Light, Personal, Project, RoomFilling, Tech, Visual, MATS_CHOICES
 
 
 class PersonalForm(forms.Form):
@@ -84,4 +84,36 @@ class LightForm(forms.ModelForm):
             'temp_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
         }
 
+class TechForm(forms.ModelForm):
 
+    class Meta:
+        model = Tech
+        fields = '__all__'
+        widgets = {
+            'walls_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            'floors_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            'doors_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            'windows_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            'ceil_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            'heating_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            'conditioner': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            'warm_floor': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            'electric_other': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            'additional': forms.Textarea(attrs={'rows': 1, 'cols': 30}),
+            
+        }
+
+class ProjectForm(forms.ModelForm):
+
+    class Meta:
+        model = Project
+        fields = '__all__'
+        widgets = {
+            'contents': forms.RadioSelect(
+                choices=Project.Content.choices, 
+                attrs={"required": False}
+                ),
+            'urgencies': forms.RadioSelect(choices=Project.Urgency.choices, ),
+            'communications': forms.RadioSelect(choices=Project.Communication.choices, ),
+
+        }

@@ -1,0 +1,74 @@
+{% extends "survey/layout.html" %}
+
+{% block body %}
+    {% if request.user.is_authenticated %}
+    <div><h3>Проектная часть</h3></div>
+    <div>
+        <div>"Дизайн-проект в подарок", который идет по умолчанию к договору на ремонт содержит в себе всю необходимую информацию для реализации ремонта и занимает 38 календарных дней. </div>
+        <div>
+            <div>Проект наполнен следующим:</div>
+            <ul>
+                <li>обмерный план</li>
+                <li>планировочное решение</li>
+                <li>схемы размещения освещения, розеток и выключателей</li>
+                <li>схемы отделки пола, потолка, стен</li>
+                <li>схемы расположения теплых полов, кондиционеров и другого оборудования</li>
+                <li>развертки стен кухни, туалета и ванной</li>
+                <li>визуализации ТОЛЬКО санузлов (визуализации всех остальных помещений выполняются за отдельную плату)</li>
+                <li>ведомость чистовых материалов и сантехнического оборудования, дверей и базовых светильников</li>
+                <li>1 выезд с дизайнером на подбор основных отделочных материалов</li>
+                <li>чат для общения с дизайнером</li>
+            </ul>
+        </div>
+    </div>
+    <form action="{% url 'project' %}" method="post">
+            {% csrf_token %}
+
+            <div class="quest">
+                <div>Достаточно ли вам такого наполнения проекта?</div>
+                {% for item in form.contents %}
+                <div>{{ item }}</div>
+                {% endfor %}
+            </div>
+            <div class="quest">
+                <div></div>
+                <div>{{ form.content_other|safe }}</div>
+            </div>
+
+            <div class="quest">
+                <div>Срочность выполнения проекта:</div>
+                {% for item in form.urgencies %}
+                <div>{{item}}</div>
+                {% endfor %}
+            </div>
+            <div class="quest">
+                <div></div>
+                <div>{{ form.urgencies_other|safe }}</div>
+            </div>
+
+            <div class="quest">
+                <div>Способы коммуникации при работе над проектом:</div>
+                {% for item in form.communications %}
+                <div>{{item}}</div>
+                {% endfor %}
+            </div>
+            <div class="quest">
+                <div></div>
+                <div>{{ form.communications_other|safe }}</div>
+            </div>
+
+            <div class="quest">
+                <div>Дополнительно (если при заполнении анкеты упустили какую-то информацию, но сейчас вспомнили, напишите ее ниже </div>
+                <div>{{ form.additions|safe }}</div>
+            </div>
+
+            <div>Благодарим вас за заполнение анкеты! Пожалуйста, сообщите в чат, что анкета заполнена! Совсем скоро мы обработаем результаты и приступим к проектированию.</div>
+
+            <input class="btn btn-primary" type="submit" value="Далее">
+        </form>
+
+
+
+
+    {% endif %}
+{% endblock %}
