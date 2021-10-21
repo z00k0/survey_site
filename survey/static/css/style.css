@@ -9,25 +9,18 @@ body {
     
 }
 
-
-
-
-
 img {
      width: 250px;
-     height: 320px;
+     max-height: 320px;
+     min-height: 20px;
      border-style: solid;
      border-radius: 5px;
      border-width: 1px;
      border-color: white;
-     margin: 5px;
+     /* margin: 5px; */
 }
 
-.img-choice {
-    max-height:100%;
-    margin: auto;
-    display: block;
-}
+
 
 textarea {
     border-radius: 5px;
@@ -35,6 +28,7 @@ textarea {
     border-color: #ced4da;
     border-width: 1px;
     resize: none;
+    margin-left: 20px;
 }
 
 .numbers {
@@ -45,26 +39,65 @@ textarea {
 }
 .btn {
     background-color: rgb(37, 105, 196);
+    margin: 10px;
     
 }
 
 .btn:hover {
     background-color: rgb(35, 98, 184);
 }
-
-div.bd {
+ 
+ div.bd {
     max-width: 1000px;
-    margin: auto;
+    margin: auto ;
 }
 
 div.quest {
     background-color: white;
     max-width: 1000px;
     margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
     padding: 7px;
     border-radius: 5px;
     border-style: solid;
     border-color: #ced4da;
     border-width: 1px;
     
+    
+}
+
+div.q1 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.form-check {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 300px;
+    padding: 0px;
+    margin: 10px;
+    /* background-color: turquoise; */
+}
+
+.form-check-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 270px;
+    padding: 5px;
+    /* background-color: violet; */
+}
+
+.form-check-input {
+    margin: 10px 5px;
+}
+
+.img-1 {
+    margin-left: 20px;
 }

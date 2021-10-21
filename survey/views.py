@@ -192,7 +192,7 @@ def tech(request):
 
 def project(request):
     if request.method == 'POST':
-        user = request.user
+        user = user = User.objects.get(username=request.user)
         form = ProjectForm(request.POST)
         if form.is_valid():
             new_form = form.save(commit=False)

@@ -3,6 +3,7 @@
 {% block body %}
     {% if request.user.is_authenticated %}
     {% load static %}
+    <div  class="bd">
     <div><h3>Наполнение помещений</h3></div>
     <div>Опишите пожелания по наполнению помещений мебелью и техникой</div>
     <form action="{% url 'filling' %}" method="post" enctype="multipart/form-data">
@@ -115,5 +116,6 @@
             
             <input class="btn btn-primary" type="submit" value="Далее">
     </form>
+    </div>
     {% endif %}
 {% endblock %}

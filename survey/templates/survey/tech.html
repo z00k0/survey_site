@@ -3,6 +3,7 @@
 {% block body %}
     {% if request.user.is_authenticated %}
     {% load static %}
+    <div class="bd">
     <div><h3>Техническая часть</h3></div>
     <div>Укажите, пожалуйста, технические особенности, которые стоит учесть в разработке проекта. Если что-то непонятно или пока неизвестно - укажите пункт "уточнить с дизайнером"</div>
     <form action="{% url 'tech' %}" method="post" enctype="multipart/form-data">
@@ -11,7 +12,7 @@
                 <div>User?</div>
                 <div>{{ form.user }}</div>
             </div>
-
+            <div class="quest" >
             <div>Отделка стен</div>
             {% for value, text in form.walls.field.choices %}
             <div class="form-check">
@@ -19,73 +20,63 @@
                 <label class="form-check-label" for="id_walls_{{ forloop.counter0 }}">{{ text }}</label>
             </div>
             {% endfor %}
-            <div class="quest">
+            
                 <div></div>
                 <div>{{ form.walls_other|safe }}</div>
             </div>
 
+            <div class="quest">
             <div>Полы</div>
-            <div></div>
             {% for value, text in form.floors.field.choices %}
             <div class="form-check">
                 <input class="form-check-input " id="id_floors_{{ forloop.counter0 }}" name="{{ form.floors.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
                 <label class="form-check-label " for="id_floors_{{ forloop.counter0 }}">{{ text }}</label>
             </div>
             {% endfor %}
-            <div class="quest">
-                <div></div>
                 <div>{{ form.floors_other|safe }}</div>
             </div>
 
+            <div class="quest">
             <div>Двери</div>
-            <div></div>
             {% for value, text in form.doors.field.choices %}
             <div class="form-check">
                 <input class="form-check-input " id="id_doors_{{ forloop.counter0 }}" name="{{ form.doors.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
                 <label class="form-check-label " for="id_doors_{{ forloop.counter0 }}">{{ text }}</label>
             </div>
             {% endfor %}
-            <div class="quest">
-                <div></div>
                 <div>{{ form.doors_other|safe }}</div>
             </div>
 
+            <div class="quest">
             <div>Окна</div>
-            <div></div>
             {% for value, text in form.windows.field.choices %}
-            <div class="form-check">
+            <div class="form-check d-inline-flex flex-row flex-wrap align-items-end img-choice">
                 <input class="form-check-input " id="id_windows_{{ forloop.counter0 }}" name="{{ form.windows.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
-                <label class="form-check-label " for="id_windows_{{ forloop.counter0 }}"><img src="{% static 'tech/' %}{{ value }}.jpg">{{ text }}</label>
+                <label class="form-check-label " for="id_windows_{{ forloop.counter0 }}"><img src="{% static 'tech/' %}{{ value }}.jpg"><div class="card-text">{{ text }}</div></label>
             </div>
             {% endfor %}
-            <div class="quest">
-                <div></div>
                 <div>{{ form.windows_other|safe }}</div>
             </div>
             
+            <div class="quest">
             <div>Потолок</div>
-            <div></div>
             {% for value, text in form.ceil.field.choices %}
-            <div class="form-check">
+            <div class="form-check d-inline-flex flex-row flex-wrap align-items-end img-choice">
                 <input class="form-check-input " id="id_ceil_{{ forloop.counter0 }}" name="{{ form.ceil.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
-                <label class="form-check-label " for="id_ceil_{{ forloop.counter0 }}"><img src="{% static 'tech/' %}{{ value }}.jpg">{{ text }}</label>
+                <label class="form-check-label " for="id_ceil_{{ forloop.counter0 }}"><img src="{% static 'tech/' %}{{ value }}.jpg"><div class="card-text">{{ text }}</div></label>
             </div>
             {% endfor %}
-            <div class="quest">
-                <div></div>
                 <div>{{ form.ceil_other|safe }}</div>
             </div>
 
+            <div class="quest">
             <div>Отопление</div>
-            <div></div>
             {% for value, text in form.heating.field.choices %}
-            <div class="form-check">
+            <div class="form-check d-inline-flex flex-row flex-wrap align-items-end img-choice">
                 <input class="form-check-input " id="id_heating_{{ forloop.counter0 }}" name="{{ form.heating.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
-                <label class="form-check-label " for="id_heating_{{ forloop.counter0 }}"><img src="{% static 'tech/' %}{{ value }}.jpg">{{ text }}</label>
+                <label class="form-check-label " for="id_heating_{{ forloop.counter0 }}"><img src="{% static 'tech/' %}{{ value }}.jpg"><div class="card-text">{{ text }}</div></label>
             </div>
             {% endfor %}
-            <div class="quest">
-                <div></div>
                 <div>{{ form.heating_other|safe }}</div>
             </div>
 
@@ -99,16 +90,14 @@
                 <div>{{ form.warm_floor|safe }}</div>
             </div>
 
+            <div class="quest">
             <div>Электрооборудование</div>
-            <div></div>
             {% for value, text in form.electric.field.choices %}
             <div class="form-check">
                 <input class="form-check-input " id="id_electric_{{ forloop.counter0 }}" name="{{ form.electric.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
                 <label class="form-check-label " for="id_electric_{{ forloop.counter0 }}">{{ text }}</label>
             </div>
             {% endfor %}
-            <div class="quest">
-                <div></div>
                 <div>{{ form.electric_other|safe }}</div>
             </div>
 
@@ -119,5 +108,6 @@
 
             <input class="btn btn-primary" type="submit" value="Далее">
     </form>
+    </div>
     {% endif %}
 {% endblock %}

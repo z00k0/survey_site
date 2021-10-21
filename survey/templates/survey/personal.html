@@ -2,6 +2,7 @@
 
 {% block body %}
     {% if request.user.is_authenticated %}
+    <div class="bd">
     <div><h3>Общие данные</h3></div>    
     <form action="{% url 'personal' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -71,6 +72,7 @@
 
     <div>
         <a class="btn btn-primary" href="{% url 'index' %}">В начало</a>
+    </div>
     </div>
     {% endif %}
 {% endblock %}

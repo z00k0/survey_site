@@ -1,7 +1,8 @@
 {% extends "survey/layout.html" %}
 
 {% block body %}
-    <h2>Добро пожаловать!</h2>
+<div class="bd">   
+<h2>Добро пожаловать!</h2>
     <div class="quest">
         <div>Общие данные</div>
         <div>
@@ -16,4 +17,5 @@
     <div>
         <a class="btn btn-primary" href="{% url 'personal' %}">Начать</a>
     </div>
+</div>
 {% endblock %}

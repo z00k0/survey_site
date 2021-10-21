@@ -3,13 +3,12 @@
 {% block body %}
     {% if request.user.is_authenticated %}
     {% load static %}
+    <div  class="bd">
     <div><h3>Общие данные</h3></div>    
     <form action="{% url 'visual' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="quest" >
-                <div>{{ form.user }}</div>
-            </div>
             <div class="quest">
+                
                 <div><h5>Какие материалы и элементы оформления хотелось бы видеть в интерьере?</h5></div>
                 {% for value, text in form.materials.field.choices %}
                 <div class="form-check">
@@ -17,19 +16,23 @@
                     <label class="form-check-label" for="id_materials_{{ forloop.counter0 }}">{{ text }}</label>
                 </div>
                 {% endfor %}
-                <div>
-                    <div>{{ form.material_other|safe }}</div>
-                </div>
+            <div>{{ form.material_other|safe }}</div>    
             </div>
+            
+                
+            
             <div class="quest">
+                <div class="q1">
                 <div><h5>Стилевое направление (выберите интерьеры, которые для вам нравятся)</h5></div>
                 {% for value, text in form.styles.field.choices %}
-                <div class="form-check d-inline-flex flex-row flex-wrap align-items-center img-choice">
+                <div class="form-check  img-choice">
                     <input class="form-check-input col-md-3" id="id_styles_{{ forloop.counter0 }}" name="{{ form.styles.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
                     <label class="form-check-label col-md-3" for="id_styles_{{ forloop.counter0 }}"><img src="{% static 'style/' %}{{ text }}.jpg"></label>
                 </div>
                 {% endfor %}
-                    <div>{{ form.style_other|safe }}</div>
+                <div>
+                <div>{{ form.style_other|safe }}</div>
+                </div>
                 </div>
             </div>
             <div class="quest">
@@ -37,8 +40,8 @@
                     <div><h5>Что для Вас категорически неприемлемо в оформлении интерьера? (цвета, элементы декора и тд)</h5></div>
                         <div>{{ form.style_other|safe }}</div>
                     </div>
-                </div>
             </div>
+            
             <div class="quest">
                 <div><h5>Какую мебель планируете использовать?</h5></div>
                 {% for value, text in form.furniture.field.choices %}
@@ -48,8 +51,8 @@
                 </div>
                 {% endfor %}
                     <div>{{ form.furniture_other|safe }}</div>
-                </div>
             </div>
+            
             <div class="quest">
                 <div><h5>В планировке нужно предусмотреть следующие помещения:</h5></div>
                 {% for value, text in form.planning.field.choices %}
@@ -59,8 +62,8 @@
                 </div>
                 {% endfor %}
                     <div>{{ form.planning_other|safe }}</div>
-                </div>
             </div>
+            
             <div class="quest">
                 <div><h5>Будет ли перепланировка?</h5></div>
                 {% for value, text in form.planning_type.field.choices %}
@@ -69,11 +72,14 @@
                     <label class="form-check-label" for="id_planning_type_{{ forloop.counter0 }}">{{ text }}</label>
                 </div>
                 {% endfor %}
+            </div>
+            <div class="quest">    
                 <div><h5>Подробно опишите перепланировку, которую хотелось бы сделать. Если ее не будет, оставьте графу пустой</h5></div>
                     <div>{{ form.planning_type_other|safe }}</div>
-                </div>
             </div>
             <input class="btn btn-primary" type="submit" value="Далее">
+    </div>
+            
     </form>
     {% endif %}
 {% endblock %}

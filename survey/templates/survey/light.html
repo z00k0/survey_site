@@ -13,21 +13,24 @@
             </div>
 
             <div class="quest">
-            <div><h5>Выберите типы освещения, которые вам нравятся. Все светильники на фото показаны для описания типа освещения (внешний вид светильников в каждом проекте соответствует стилистике проекта)</h5></div>
-            {% for value, text in form.lights.field.choices %}
-            <div class="form-check d-inline-flex flex-row flex-wrap align-items-center img-choice">
-                <input class="form-check-input" id="id_lights_{{ forloop.counter0 }}" name="{{ form.lights.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
-                <label class="form-check-label" for="id_lights_{{ forloop.counter0 }}"><img src="{% static 'lights/' %}{{ value }}.jpg">{{ text }}</label>
+                <div class="q1">
+                <div><h5>Выберите типы освещения, которые вам нравятся. Все светильники на фото показаны для описания типа освещения (внешний вид светильников в каждом проекте соответствует стилистике проекта)</h5></div>
+                {% for value, text in form.lights.field.choices %}
+                <div class="form-check  img-choice ">
+                    <input class="form-check-input" id="id_lights_{{ forloop.counter0 }}" name="{{ form.lights.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
+                    <label class="form-check-label" for="id_lights_{{ forloop.counter0 }}">
+                        <img src="{% static 'lights/' %}{{ value }}.jpg">
+                        <div class="card-text">{{ text }}</div>
+                    </label>
+                </div>
+                {% endfor %}
+                </div>
+            <div>{{ form.lights_other|safe }}</div>
             </div>
-            {% endfor %}
-            <!-- <div class="quest">
-                <div></div> -->
-                <div>{{ form.lights_other|safe }}</div>
-            </div>
-            </div>
-            <div class="quest">
+        </div>
+        <div class="quest">
                 <div><h5>Цветовая температура освещения</h5></div>
-                <div><img src="{% static 'lights/' %}light.jpg" ></div>
+                <div class="img-1"><img src="{% static 'lights/' %}light.jpg" ></div>
                 {% for value, text in form.temperature.field.choices %}
                 <div class="form-check">
                     <input class="form-check-input " id="id_temperature_{{ forloop.counter0 }}" name="{{ form.temperature.name }}" type="checkbox" value="{{ value }}"{% if value in checked_providers %} checked="checked"{% endif %}>
@@ -35,10 +38,10 @@
                 </div>
                 {% endfor %}
                 <div>{{ form.temp_other|safe }}</div>
-            </div>
+        </div>
+            <input class="btn btn-primary" type="submit" value="Далее">
         </div>    
             
-            <input class="btn btn-primary" type="submit" value="Далее">
     </form>
     </div>
     {% endif %}
