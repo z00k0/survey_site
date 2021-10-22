@@ -28,7 +28,7 @@ textarea {
     border-color: #ced4da;
     border-width: 1px;
     resize: none;
-    margin-left: 20px;
+    /* margin-left: 15px; */
 }
 
 .numbers {
@@ -36,6 +36,7 @@ textarea {
     border-style: solid;
     border-color: #ced4da;
     border-width: 1px;
+    /* margin-left: 15px; */
 }
 .btn {
     background-color: rgb(37, 105, 196);
@@ -59,6 +60,7 @@ div.quest {
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 7px;
+    padding-left: 15px;
     border-radius: 5px;
     border-style: solid;
     border-color: #ced4da;

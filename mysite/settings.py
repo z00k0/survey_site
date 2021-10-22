@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'survey_db',
+        'USER': 'db_user',
+        'PASSWORD': os.getenv('PSQL_PASS'),
+        'HOST': '192.168.88.38',
+        'PORT': '5432',
     }
 }
 
