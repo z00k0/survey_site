@@ -24,11 +24,7 @@
     </div>
     <form action="{% url 'project' %}" method="post">
             {% csrf_token %}
-            <!-- <div class="quest" >
-                <div>User?</div>
-                <div>{{ form.user }}</div>
-            </div> -->
-
+            
             <div class="quest">
                 <div>Достаточно ли вам такого наполнения проекта?</div>
                 {% for  value, text in form.contents.field.choices %}
